@@ -310,6 +310,7 @@ class ShortcutsViewController: NSViewController {
             ShortcutCategory(actions: [
                 .firstFourth, .secondFourth, .thirdFourth, .lastFourth, .firstThreeFourths, .centerThreeFourths, .lastThreeFourths
             ]),
+            ShortcutCategory(actions: [.firstFifth, .secondFifth, .thirdFifth, .fourthFifth, .lastFifth]),
             ShortcutCategory(actions: [
                 .topLeftSixth, .topCenterSixth, .topRightSixth, .bottomLeftSixth, .bottomCenterSixth, .bottomRightSixth
             ]),

@@ -9188,6 +9188,17 @@
         }
       }
     },
+    "Fifths" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fifths"
+          }
+        }
+      }
+    },
     "FKE-Sm-Kum.title" : {
       "comment" : "Class = \"NSMenuItem\"; title = \"Rectangle Help\"; ObjectID = \"FKE-Sm-Kum\";",
       "extractionState" : "extracted_with_value",

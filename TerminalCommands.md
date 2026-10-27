@@ -299,6 +299,26 @@ defaults write com.knollsoft.Rectangle firstVerticalSixth -dict-add keyCode -flo
 
 Repeating `firstVerticalSixth` cycles forward through all 6 positions. Repeating `lastVerticalSixth` cycles through them in reverse when repeated-command behavior is enabled.
 
+## Add "fifths" sizing commands
+
+These commands divide a landscape display into 5 full-height vertical columns, each one fifth of the screen width. On a portrait display, they automatically rotate into 5 horizontal rows. They are available in the status bar menu under "Fifths" and can be configured in the Shortcuts settings (in the Fifths section, right after Fourths), or via CLI. No default shortcuts are assigned.
+
+The key codes are:
+
+* firstFifth
+* secondFifth
+* thirdFifth
+* fourthFifth
+* lastFifth
+
+For example, the command for setting the first fifth shortcut to `ctrl opt shift 1` would be:
+
+```bash
+defaults write com.knollsoft.Rectangle firstFifth -dict-add keyCode -float 18 modifierFlags -float 917504
+```
+
+Repeating `firstFifth` cycles forward through all 5 positions. Repeating `lastFifth` cycles through them in reverse when repeated-command behavior is enabled. The middle three fifths stay put when repeated.
+
 ## Add additional "thirds" sizing commands 
 
 These commands for resizing to corner two-thirds are not available in the UI but can be configured via CLI.

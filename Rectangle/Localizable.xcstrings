@@ -12778,6 +12778,16 @@
         }
       }
     },
+    "First Fifth" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "First Fifth"
+          }
+        }
+      }
+    },
     "First Fourth" : {
       "localizations" : {
         "ar" : {
@@ -13676,6 +13686,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "适用于窗口列表和循环切换快捷键。关闭时，左上角位置相同的窗口无论大小都视为堆叠"
+          }
+        }
+      }
+    },
+    "Fourth Fifth" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Fourth Fifth"
           }
         }
       }
@@ -17670,6 +17690,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "增加宽度"
+          }
+        }
+      }
+    },
+    "Last Fifth" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Last Fifth"
           }
         }
       }
@@ -28723,6 +28753,16 @@
         }
       }
     },
+    "Second Fifth" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Second Fifth"
+          }
+        }
+      }
+    },
     "Second Fourth" : {
       "localizations" : {
         "ar" : {
@@ -32022,6 +32062,16 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "半屏操作切换到对侧"
+          }
+        }
+      }
+    },
+    "Third Fifth" : {
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Third Fifth"
           }
         }
       }

@@ -153,7 +153,12 @@ enum WindowAction: Int, Codable {
          thirdVerticalSixth = 143,
          fourthVerticalSixth = 144,
          fifthVerticalSixth = 145,
-         lastVerticalSixth = 146
+         lastVerticalSixth = 146,
+         firstFifth = 147,
+         secondFifth = 148,
+         thirdFifth = 149,
+         fourthFifth = 150,
+         lastFifth = 151
 
     // Order matters here - it's used in the menu
     static let active = [leftHalf, rightHalf, centerHalf, topHalf, bottomHalf,
@@ -165,6 +170,7 @@ enum WindowAction: Int, Codable {
                          nextDisplay, previousDisplay,
                          moveLeft, moveRight, moveUp, moveDown,
                          firstFourth, secondFourth, thirdFourth, lastFourth, firstThreeFourths, centerThreeFourths, lastThreeFourths,
+                         firstFifth, secondFifth, thirdFifth, fourthFifth, lastFifth,
                          topLeftSixth, topCenterSixth, topRightSixth, bottomLeftSixth, bottomCenterSixth, bottomRightSixth,
                          specified, reverseAll,
                          topLeftThird, topRightThird, bottomLeftThird, bottomRightThird,
@@ -218,7 +224,7 @@ enum WindowAction: Int, Codable {
     // Determines where separators should be used in the menu
     var firstInGroup: Bool {
         switch self {
-        case .leftHalf, .topLeft, .firstThird, .maximize, .almostMaximize, .nextDisplay, .moveLeft, .firstFourth, .topLeftSixth, .topLeftEighth, .topLeftNinth, .topLeftTwelfth, .topLeftSixteenth, .tileRows:
+        case .leftHalf, .topLeft, .firstThird, .maximize, .almostMaximize, .nextDisplay, .moveLeft, .firstFourth, .firstFifth, .topLeftSixth, .topLeftEighth, .topLeftNinth, .topLeftTwelfth, .topLeftSixteenth, .tileRows:
             return true
         default:
             return false
@@ -317,6 +323,11 @@ enum WindowAction: Int, Codable {
         case .fourthVerticalSixth: return "fourthVerticalSixth"
         case .fifthVerticalSixth: return "fifthVerticalSixth"
         case .lastVerticalSixth: return "lastVerticalSixth"
+        case .firstFifth: return "firstFifth"
+        case .secondFifth: return "secondFifth"
+        case .thirdFifth: return "thirdFifth"
+        case .fourthFifth: return "fourthFifth"
+        case .lastFifth: return "lastFifth"
         case .doubleHeightUp: return "doubleHeightUp"
         case .doubleHeightDown: return "doubleHeightDown"
         case .doubleWidthLeft: return "doubleWidthLeft"
@@ -557,6 +568,16 @@ enum WindowAction: Int, Codable {
             String(localized: "Fifth Vertical Sixth")
         case .lastVerticalSixth:
             String(localized: "Last Vertical Sixth")
+        case .firstFifth:
+            String(localized: "First Fifth")
+        case .secondFifth:
+            String(localized: "Second Fifth")
+        case .thirdFifth:
+            String(localized: "Third Fifth")
+        case .fourthFifth:
+            String(localized: "Fourth Fifth")
+        case .lastFifth:
+            String(localized: "Last Fifth")
         case .tileRows:
             String(localized: "Tile in Rows")
         case .tileColumns:
@@ -691,6 +712,7 @@ enum WindowAction: Int, Codable {
             .fifthVerticalEighth, .sixthVerticalEighth, .seventhVerticalEighth, .lastVerticalEighth,
             .firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth,
             .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth,
+            .firstFifth, .secondFifth, .thirdFifth, .fourthFifth, .lastFifth,
             // Ninths
             .topLeftNinth, .topCenterNinth, .topRightNinth, .middleLeftNinth, .middleCenterNinth, .middleRightNinth, .bottomLeftNinth, .bottomCenterNinth, .bottomRightNinth,
             // Corner thirds
@@ -833,6 +855,11 @@ enum WindowAction: Int, Codable {
         case .fourthVerticalSixth: return NSImage(imageLiteralResourceName: "fourthVerticalSixthTemplate")
         case .fifthVerticalSixth: return NSImage(imageLiteralResourceName: "fifthVerticalSixthTemplate")
         case .lastVerticalSixth: return NSImage(imageLiteralResourceName: "lastVerticalSixthTemplate")
+        case .firstFifth: return NSImage(imageLiteralResourceName: "firstFifthTemplate")
+        case .secondFifth: return NSImage(imageLiteralResourceName: "secondFifthTemplate")
+        case .thirdFifth: return NSImage(imageLiteralResourceName: "thirdFifthTemplate")
+        case .fourthFifth: return NSImage(imageLiteralResourceName: "fourthFifthTemplate")
+        case .lastFifth: return NSImage(imageLiteralResourceName: "lastFifthTemplate")
         case .doubleHeightUp: return  NSImage()
         case .doubleHeightDown: return  NSImage()
         case .doubleWidthLeft: return  NSImage()
@@ -912,6 +939,9 @@ enum WindowAction: Int, Codable {
         case .firstVerticalSixth: return .right
         case .secondVerticalSixth, .thirdVerticalSixth, .fourthVerticalSixth, .fifthVerticalSixth: return [.left, .right]
         case .lastVerticalSixth: return .left
+        case .firstFifth: return .right
+        case .secondFifth, .thirdFifth, .fourthFifth: return [.left, .right]
+        case .lastFifth: return .left
         case .moveUp: return Defaults.resizeOnDirectionalMove.enabled ? .bottom : .none
         case .moveDown: return Defaults.resizeOnDirectionalMove.enabled ? .top : .none
         case .moveLeft: return Defaults.resizeOnDirectionalMove.enabled ? .right : .none
@@ -933,6 +963,7 @@ enum WindowAction: Int, Codable {
             .fifthVerticalEighth, .sixthVerticalEighth, .seventhVerticalEighth, .lastVerticalEighth,
             .firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth,
             .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth,
+            .firstFifth, .secondFifth, .thirdFifth, .fourthFifth, .lastFifth,
             .topLeftTwelfth, .topCenterLeftTwelfth, .topCenterRightTwelfth, .topRightTwelfth,
             .middleLeftTwelfth, .middleCenterLeftTwelfth, .middleCenterRightTwelfth, .middleRightTwelfth,
             .bottomLeftTwelfth, .bottomCenterLeftTwelfth, .bottomCenterRightTwelfth, .bottomRightTwelfth,
@@ -995,6 +1026,7 @@ enum WindowAction: Int, Codable {
         switch self {
         case .firstThird, .centerThird, .lastThird, .firstTwoThirds, .centerTwoThirds, .lastTwoThirds: return .thirds
         case .firstFourth, .secondFourth, .thirdFourth, .lastFourth, .firstThreeFourths, .centerThreeFourths, .lastThreeFourths: return .fourths
+        case .firstFifth, .secondFifth, .thirdFifth, .fourthFifth, .lastFifth: return .fifths
         case .topLeftSixth, .topCenterSixth, .topRightSixth, .bottomLeftSixth, .bottomCenterSixth, .bottomRightSixth,
              .firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth, .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth: return .sixths
         case .topLeftEighth, .topCenterLeftEighth, .topCenterRightEighth, .topRightEighth, .bottomLeftEighth, .bottomCenterLeftEighth, .bottomCenterRightEighth, .bottomRightEighth,
@@ -1142,6 +1174,18 @@ enum SubWindowAction {
     fifthVerticalSixthPortrait,
     lastVerticalSixthPortrait,
 
+    firstFifthLandscape,
+    secondFifthLandscape,
+    thirdFifthLandscape,
+    fourthFifthLandscape,
+    lastFifthLandscape,
+
+    firstFifthPortrait,
+    secondFifthPortrait,
+    thirdFifthPortrait,
+    fourthFifthPortrait,
+    lastFifthPortrait,
+
     topLeftTwelfth,
     topCenterLeftTwelfth,
     topCenterRightTwelfth,
@@ -1268,6 +1312,14 @@ enum SubWindowAction {
         case .secondVerticalSixthPortrait, .thirdVerticalSixthPortrait, .fourthVerticalSixthPortrait, .fifthVerticalSixthPortrait:
             return [.top, .bottom]
         case .lastVerticalSixthPortrait: return .top
+        case .firstFifthLandscape: return .right
+        case .secondFifthLandscape, .thirdFifthLandscape, .fourthFifthLandscape:
+            return [.left, .right]
+        case .lastFifthLandscape: return .left
+        case .firstFifthPortrait: return .bottom
+        case .secondFifthPortrait, .thirdFifthPortrait, .fourthFifthPortrait:
+            return [.top, .bottom]
+        case .lastFifthPortrait: return .top
         case .topLeftTwelfth: return [.right, .bottom]
         case .topCenterLeftTwelfth: return [.right, .left, .bottom]
         case .topCenterRightTwelfth: return [.right, .left, .bottom]

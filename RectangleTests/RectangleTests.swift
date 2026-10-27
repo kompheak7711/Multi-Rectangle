@@ -483,6 +483,157 @@ class VerticalEighthActionTests: XCTestCase {
     }
 }
 
+class FifthActionTests: XCTestCase {
+
+    private let actions: [WindowAction] = [
+        .firstFifth, .secondFifth, .thirdFifth, .fourthFifth, .lastFifth
+    ]
+
+    func testFifthActionsUseAvailableStableIdentifiers() {
+        XCTAssertEqual(WindowAction.lastVerticalSixth.rawValue, 146)
+        XCTAssertEqual(actions.map(\.rawValue), [147, 148, 149, 150, 151])
+        XCTAssertEqual(actions.map(\.name), [
+            "firstFifth", "secondFifth", "thirdFifth", "fourthFifth", "lastFifth"
+        ])
+        XCTAssertEqual(actions.compactMap(\.displayName), [
+            "First Fifth", "Second Fifth", "Third Fifth", "Fourth Fifth", "Last Fifth"
+        ])
+    }
+
+    func testFifthActionsTileVisibleFrameIntoFiveFullHeightColumns() {
+        let visibleFrame = CGRect(x: 0, y: 40, width: 3000, height: 1000)
+        let expected = (0..<5).map { CGRect(x: CGFloat($0 * 600), y: 40, width: 600, height: 1000) }
+        XCTAssertEqual(actions.map { calculate($0, visibleFrame: visibleFrame).rect }, expected)
+    }
+
+    func testFifthActionsUseBoundaryRoundingAcrossNonDivisibleLandscapeWidth() {
+        let visibleFrame = CGRect(x: 20, y: 40, width: 1441, height: 800)
+        let expected = [
+            CGRect(x: 20, y: 40, width: 288, height: 800),
+            CGRect(x: 308, y: 40, width: 288, height: 800),
+            CGRect(x: 596, y: 40, width: 288, height: 800),
+            CGRect(x: 884, y: 40, width: 288, height: 800),
+            CGRect(x: 1172, y: 40, width: 289, height: 800)
+        ]
+
+        let rects = actions.map { calculate($0, visibleFrame: visibleFrame).rect }
+        XCTAssertEqual(rects, expected)
+        XCTAssertEqual(rects.first?.minX, visibleFrame.minX)
+        XCTAssertEqual(rects.last?.maxX, visibleFrame.maxX)
+        for (left, right) in zip(rects, rects.dropFirst()) {
+            XCTAssertEqual(left.maxX, right.minX)
+        }
+    }
+
+    func testFifthActionsRotateIntoTopToBottomRowsOnPortraitDisplays() {
+        let visibleFrame = CGRect(x: 20, y: 40, width: 800, height: 1441)
+        let expected = [
+            CGRect(x: 20, y: 1193, width: 800, height: 288),
+            CGRect(x: 20, y: 905, width: 800, height: 288),
+            CGRect(x: 20, y: 617, width: 800, height: 288),
+            CGRect(x: 20, y: 329, width: 800, height: 288),
+            CGRect(x: 20, y: 40, width: 800, height: 289)
+        ]
+
+        XCTAssertEqual(actions.map { calculate($0, visibleFrame: visibleFrame).rect }, expected)
+    }
+
+    func testFirstFifthCyclesForwardAndWraps() {
+        withSubsequentExecutionMode(.resize) {
+            let visibleFrame = CGRect(x: 20, y: 40, width: 600, height: 400)
+            let results = repeatedResults(for: .firstFifth, count: 6, visibleFrame: visibleFrame)
+            XCTAssertEqual(results.map { $0.rect.minX }, [20, 140, 260, 380, 500, 20])
+        }
+    }
+
+    func testLastFifthCyclesBackwardAndWraps() {
+        withSubsequentExecutionMode(.resize) {
+            let visibleFrame = CGRect(x: 20, y: 40, width: 600, height: 400)
+            let results = repeatedResults(for: .lastFifth, count: 6, visibleFrame: visibleFrame)
+            XCTAssertEqual(results.map { $0.rect.minX }, [500, 380, 260, 140, 20, 500])
+        }
+    }
+
+    func testMiddleFifthsStayPutWhenRepeated() {
+        withSubsequentExecutionMode(.resize) {
+            let visibleFrame = CGRect(x: 20, y: 40, width: 600, height: 400)
+            XCTAssertEqual(repeatedResults(for: .secondFifth, count: 3, visibleFrame: visibleFrame).map { $0.rect.minX },
+                           [140, 140, 140])
+            XCTAssertEqual(repeatedResults(for: .thirdFifth, count: 3, visibleFrame: visibleFrame).map { $0.rect.minX },
+                           [260, 260, 260])
+            XCTAssertEqual(repeatedResults(for: .fourthFifth, count: 3, visibleFrame: visibleFrame).map { $0.rect.minX },
+                           [380, 380, 380])
+        }
+    }
+
+    func testEndpointCyclingIsDisabledWhenSubsequentExecutionModeIsNone() {
+        withSubsequentExecutionMode(.none) {
+            let visibleFrame = CGRect(x: 20, y: 40, width: 600, height: 400)
+            XCTAssertEqual(repeatedResults(for: .firstFifth, count: 3, visibleFrame: visibleFrame).map { $0.rect.minX },
+                           [20, 20, 20])
+            XCTAssertEqual(repeatedResults(for: .lastFifth, count: 3, visibleFrame: visibleFrame).map { $0.rect.minX },
+                           [500, 500, 500])
+        }
+    }
+
+    func testFifthResultingSubActionsProvideGapEdges() {
+        let landscape = CGRect(x: 20, y: 40, width: 1441, height: 800)
+        let portrait = CGRect(x: 20, y: 40, width: 800, height: 1441)
+        let landscapeEdges: [Edge] = [.right, [.left, .right], [.left, .right], [.left, .right], .left]
+        let portraitEdges: [Edge] = [.bottom, [.top, .bottom], [.top, .bottom], [.top, .bottom], .top]
+
+        for (index, action) in actions.enumerated() {
+            XCTAssertEqual(calculate(action, visibleFrame: landscape).subAction?.gapSharedEdge, landscapeEdges[index])
+            XCTAssertEqual(calculate(action, visibleFrame: portrait).subAction?.gapSharedEdge, portraitEdges[index])
+            XCTAssertEqual(action.gapsApplicable, .both)
+        }
+    }
+
+    func testFifthActionsAppearInMenuLikeFourths() {
+        XCTAssertTrue(actions.allSatisfy { WindowAction.active.contains($0) })
+        XCTAssertTrue(actions.allSatisfy { !$0.excludedFromMenu })
+        XCTAssertTrue(actions.allSatisfy { $0.category == .fifths })
+        XCTAssertTrue(actions.allSatisfy { !$0.isDragSnappable })
+        XCTAssertTrue(WindowAction.firstFifth.firstInGroup)
+        XCTAssertEqual(actions.filter(\.firstInGroup), [.firstFifth])
+        XCTAssertEqual(WindowActionCategory.fifths.menuOrder, WindowActionCategory.fourths.menuOrder + 1)
+        XCTAssertLessThan(WindowActionCategory.fifths.menuOrder, WindowActionCategory.sixths.menuOrder)
+
+        let activeIndex = { (action: WindowAction) in WindowAction.active.firstIndex(of: action)! }
+        XCTAssertEqual(activeIndex(.firstFifth), activeIndex(.lastThreeFourths) + 1)
+        XCTAssertEqual(activeIndex(.lastFifth), activeIndex(.topLeftSixth) - 1)
+    }
+
+    private func calculate(_ action: WindowAction,
+                           visibleFrame: CGRect,
+                           lastAction: RectangleAction? = nil) -> RectResult {
+        WindowCalculationFactory.calculationsByAction[action]!.calculateRect(
+            RectCalculationParameters(window: Window(id: 1, rect: visibleFrame),
+                                      visibleFrameOfScreen: visibleFrame,
+                                      action: action,
+                                      lastAction: lastAction)
+        )
+    }
+
+    private func repeatedResults(for action: WindowAction,
+                                 count: Int,
+                                 visibleFrame: CGRect) -> [RectResult] {
+        var lastAction: RectangleAction?
+        return (0..<count).map { _ in
+            let result = calculate(action, visibleFrame: visibleFrame, lastAction: lastAction)
+            lastAction = RectangleAction(action: action, subAction: result.subAction, rect: result.rect)
+            return result
+        }
+    }
+
+    private func withSubsequentExecutionMode(_ mode: SubsequentExecutionMode, _ body: () -> Void) {
+        let saved = Defaults.subsequentExecutionMode.value
+        defer { Defaults.subsequentExecutionMode.value = saved }
+        Defaults.subsequentExecutionMode.value = mode
+        body()
+    }
+}
+
 class VerticalSixthActionTests: XCTestCase {
 
     private let actions: [WindowAction] = [
