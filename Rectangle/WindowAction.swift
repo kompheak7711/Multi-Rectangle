@@ -171,6 +171,8 @@ enum WindowAction: Int, Codable {
                          moveLeft, moveRight, moveUp, moveDown,
                          firstFourth, secondFourth, thirdFourth, lastFourth, firstThreeFourths, centerThreeFourths, lastThreeFourths,
                          firstFifth, secondFifth, thirdFifth, fourthFifth, lastFifth,
+                         firstVerticalSixth, secondVerticalSixth, thirdVerticalSixth,
+                         fourthVerticalSixth, fifthVerticalSixth, lastVerticalSixth,
                          topLeftSixth, topCenterSixth, topRightSixth, bottomLeftSixth, bottomCenterSixth, bottomRightSixth,
                          specified, reverseAll,
                          topLeftThird, topRightThird, bottomLeftThird, bottomRightThird,
@@ -178,8 +180,6 @@ enum WindowAction: Int, Codable {
                          bottomLeftEighth, bottomCenterLeftEighth, bottomCenterRightEighth, bottomRightEighth,
                          firstVerticalEighth, secondVerticalEighth, thirdVerticalEighth, fourthVerticalEighth,
                          fifthVerticalEighth, sixthVerticalEighth, seventhVerticalEighth, lastVerticalEighth,
-                         firstVerticalSixth, secondVerticalSixth, thirdVerticalSixth,
-                         fourthVerticalSixth, fifthVerticalSixth, lastVerticalSixth,
                          topLeftNinth, topCenterNinth, topRightNinth,
                          middleLeftNinth, middleCenterNinth, middleRightNinth,
                          bottomLeftNinth, bottomCenterNinth, bottomRightNinth,
@@ -224,7 +224,7 @@ enum WindowAction: Int, Codable {
     // Determines where separators should be used in the menu
     var firstInGroup: Bool {
         switch self {
-        case .leftHalf, .topLeft, .firstThird, .maximize, .almostMaximize, .nextDisplay, .moveLeft, .firstFourth, .firstFifth, .topLeftSixth, .topLeftEighth, .topLeftNinth, .topLeftTwelfth, .topLeftSixteenth, .tileRows:
+        case .leftHalf, .topLeft, .firstThird, .maximize, .almostMaximize, .nextDisplay, .moveLeft, .firstFourth, .firstFifth, .firstVerticalSixth, .topLeftSixth, .topLeftEighth, .topLeftNinth, .topLeftTwelfth, .topLeftSixteenth, .tileRows:
             return true
         default:
             return false
@@ -236,8 +236,6 @@ enum WindowAction: Int, Codable {
         case .smallerWidth, .largerWidth, .topVerticalThird, .middleVerticalThird, .bottomVerticalThird, .topVerticalTwoThirds, .bottomVerticalTwoThirds,
              .firstVerticalEighth, .secondVerticalEighth, .thirdVerticalEighth, .fourthVerticalEighth,
              .fifthVerticalEighth, .sixthVerticalEighth, .seventhVerticalEighth, .lastVerticalEighth,
-             .firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth,
-             .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth,
              .cycleStackedWindows, .cycleStackedWindowsBackward: return true
         default: return false
         }
@@ -1027,8 +1025,8 @@ enum WindowAction: Int, Codable {
         case .firstThird, .centerThird, .lastThird, .firstTwoThirds, .centerTwoThirds, .lastTwoThirds: return .thirds
         case .firstFourth, .secondFourth, .thirdFourth, .lastFourth, .firstThreeFourths, .centerThreeFourths, .lastThreeFourths: return .fourths
         case .firstFifth, .secondFifth, .thirdFifth, .fourthFifth, .lastFifth: return .fifths
-        case .topLeftSixth, .topCenterSixth, .topRightSixth, .bottomLeftSixth, .bottomCenterSixth, .bottomRightSixth,
-             .firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth, .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth: return .sixths
+        case .firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth, .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth: return .fullHeightSixths
+        case .topLeftSixth, .topCenterSixth, .topRightSixth, .bottomLeftSixth, .bottomCenterSixth, .bottomRightSixth: return .sixths
         case .topLeftEighth, .topCenterLeftEighth, .topCenterRightEighth, .topRightEighth, .bottomLeftEighth, .bottomCenterLeftEighth, .bottomCenterRightEighth, .bottomRightEighth,
              .firstVerticalEighth, .secondVerticalEighth, .thirdVerticalEighth, .fourthVerticalEighth, .fifthVerticalEighth, .sixthVerticalEighth, .seventhVerticalEighth, .lastVerticalEighth: return .eighths
         case .topLeftNinth, .topCenterNinth, .topRightNinth, .middleLeftNinth, .middleCenterNinth, .middleRightNinth, .bottomLeftNinth, .bottomCenterNinth, .bottomRightNinth: return .ninths

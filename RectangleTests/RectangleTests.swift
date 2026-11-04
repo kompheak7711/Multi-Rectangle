@@ -601,7 +601,7 @@ class FifthActionTests: XCTestCase {
 
         let activeIndex = { (action: WindowAction) in WindowAction.active.firstIndex(of: action)! }
         XCTAssertEqual(activeIndex(.firstFifth), activeIndex(.lastThreeFourths) + 1)
-        XCTAssertEqual(activeIndex(.lastFifth), activeIndex(.topLeftSixth) - 1)
+        XCTAssertEqual(activeIndex(.lastFifth), activeIndex(.firstVerticalSixth) - 1)
     }
 
     private func calculate(_ action: WindowAction,
@@ -722,10 +722,31 @@ class VerticalSixthActionTests: XCTestCase {
         }
     }
 
-    func testVerticalSixthActionsAreHiddenFromMenuAndDragSnapping() {
+    func testVerticalSixthActionsAppearInMenuAsFullHeightSixthsGroup() {
         XCTAssertTrue(actions.allSatisfy { WindowAction.active.contains($0) })
-        XCTAssertTrue(actions.allSatisfy(\.excludedFromMenu))
+        XCTAssertTrue(actions.allSatisfy { !$0.excludedFromMenu })
+        XCTAssertTrue(actions.allSatisfy { $0.category == .fullHeightSixths })
         XCTAssertTrue(actions.allSatisfy { !$0.isDragSnappable })
+        XCTAssertEqual(actions.filter(\.firstInGroup), [.firstVerticalSixth])
+        XCTAssertEqual(WindowActionCategory.fullHeightSixths.displayName, "Full-Height Sixths")
+
+        // Menu order: Fourths, Fifths, Full-Height Sixths, then the 3x2 grid Sixths
+        XCTAssertEqual(WindowActionCategory.fullHeightSixths.menuOrder, WindowActionCategory.fifths.menuOrder + 1)
+        XCTAssertEqual(WindowActionCategory.sixths.menuOrder, WindowActionCategory.fullHeightSixths.menuOrder + 1)
+
+        let activeIndex = { (action: WindowAction) in WindowAction.active.firstIndex(of: action)! }
+        XCTAssertEqual(activeIndex(.firstVerticalSixth), activeIndex(.lastFifth) + 1)
+        XCTAssertEqual(activeIndex(.lastVerticalSixth), activeIndex(.topLeftSixth) - 1)
+        XCTAssertEqual(actions.map(activeIndex), Array(activeIndex(.firstVerticalSixth)...activeIndex(.lastVerticalSixth)))
+    }
+
+    func testGridSixthsKeepTheirOwnSixthsGroup() {
+        let gridSixths: [WindowAction] = [
+            .topLeftSixth, .topCenterSixth, .topRightSixth, .bottomLeftSixth, .bottomCenterSixth, .bottomRightSixth
+        ]
+        XCTAssertTrue(gridSixths.allSatisfy { $0.category == .sixths })
+        XCTAssertTrue(gridSixths.allSatisfy { !$0.excludedFromMenu })
+        XCTAssertEqual(gridSixths.filter(\.firstInGroup), [.topLeftSixth])
     }
 
     private func calculate(_ action: WindowAction,

@@ -4,7 +4,7 @@ import Foundation
 
 enum WindowActionCategory {
 
-    case halves, corners, thirds, max, size, display, move, other, sixths, fourths, fifths, eighths, ninths, twelfths, sixteenths, tiling
+    case halves, corners, thirds, max, size, display, move, other, sixths, fourths, fifths, fullHeightSixths, eighths, ninths, twelfths, sixteenths, tiling
 
     var menuOrder: Int {
         switch self {
@@ -13,12 +13,13 @@ enum WindowActionCategory {
         case .thirds: return 2
         case .fourths: return 3
         case .fifths: return 4
-        case .sixths: return 5
-        case .eighths: return 6
-        case .ninths: return 7
-        case .twelfths: return 8
-        case .sixteenths: return 9
-        case .tiling: return 10
+        case .fullHeightSixths: return 5
+        case .sixths: return 6
+        case .eighths: return 7
+        case .ninths: return 8
+        case .twelfths: return 9
+        case .sixteenths: return 10
+        case .tiling: return 11
         default: return 99
         }
     }
@@ -45,6 +46,8 @@ enum WindowActionCategory {
             return NSLocalizedString("Fourths", tableName: "Main", value: "", comment: "")
         case .fifths:
             return NSLocalizedString("Fifths", tableName: "Main", value: "Fifths", comment: "")
+        case .fullHeightSixths:
+            return NSLocalizedString("Full-Height Sixths", tableName: "Main", value: "Full-Height Sixths", comment: "")
         case .sixths:
             return NSLocalizedString("Sixths", tableName: "Main", value: "", comment: "")
         case .eighths:

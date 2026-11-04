@@ -311,6 +311,7 @@ class ShortcutsViewController: NSViewController {
                 .firstFourth, .secondFourth, .thirdFourth, .lastFourth, .firstThreeFourths, .centerThreeFourths, .lastThreeFourths
             ]),
             ShortcutCategory(actions: [.firstFifth, .secondFifth, .thirdFifth, .fourthFifth, .lastFifth]),
+            ShortcutCategory(actions: [.firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth, .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth]),
             ShortcutCategory(actions: [
                 .topLeftSixth, .topCenterSixth, .topRightSixth, .bottomLeftSixth, .bottomCenterSixth, .bottomRightSixth
             ]),
@@ -321,7 +322,6 @@ class ShortcutsViewController: NSViewController {
             ShortcutCategory(actions: [.tileRows, .tileColumns]),
             ShortcutCategory(actions: [.largerWidth, .smallerWidth]),
             ShortcutCategory(actions: [.topVerticalThird, .middleVerticalThird, .bottomVerticalThird, .topVerticalTwoThirds, .bottomVerticalTwoThirds]),
-            ShortcutCategory(actions: [.firstVerticalSixth, .secondVerticalSixth, .thirdVerticalSixth, .fourthVerticalSixth, .fifthVerticalSixth, .lastVerticalSixth]),
             ShortcutCategory(actions: [.topLeftEighth, .topCenterLeftEighth, .topCenterRightEighth, .topRightEighth, .bottomLeftEighth, .bottomCenterLeftEighth, .bottomCenterRightEighth, .bottomRightEighth]),
             ShortcutCategory(actions: [.topLeftNinth, .topLeftTwelfth, .topLeftSixteenth])
         ]
