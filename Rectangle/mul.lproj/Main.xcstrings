@@ -9622,6 +9622,17 @@
         }
       }
     },
+    "Full-Height Sixths" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Full-Height Sixths"
+          }
+        }
+      }
+    },
     "GB9-OM-e27.title" : {
       "comment" : "Class = \"NSMenuItem\"; title = \"Bold\"; ObjectID = \"GB9-OM-e27\";",
       "extractionState" : "manual",
