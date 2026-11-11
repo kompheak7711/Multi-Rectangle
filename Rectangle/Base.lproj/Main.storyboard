@@ -253,7 +253,7 @@
                                 <action selector="viewLogging:" target="Voe-Tx-rLC" id="8cH-2P-yKC"/>
                             </connections>
                         </menuItem>
-                        <menuItem title="Check for Updates…" id="HIK-3r-i7E">
+                        <menuItem title="Check for Updates…" hidden="YES" id="HIK-3r-i7E">
                             <modifierMask key="keyEquivalentModifierMask"/>
                             <connections>
                                 <action selector="checkForUpdates:" target="Voe-Tx-rLC" id="kWZ-ie-6y9"/>

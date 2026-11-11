@@ -5,56 +5,27 @@
   ],
   "fill" : {
     "linear-gradient" : [
-      "display-p3:0.36863,0.43529,0.50980,1.00000",
-      "srgb:0.24706,0.27451,0.33333,1.00000"
+      "srgb:0.15686,0.17255,0.24314,1.00000",
+      "srgb:0.07843,0.08627,0.13333,1.00000"
     ]
   },
   "groups" : [
     {
-      "blur-material" : null,
       "layers" : [
         {
           "glass" : true,
-          "image-name" : "Dots.svg",
-          "name" : "Dots"
-        }
-      ],
-      "shadow" : {
-        "kind" : "none",
-        "opacity" : 0.5
-      },
-      "specular" : "inside",
-      "translucency" : {
-        "enabled" : true,
-        "value" : 0.2
-      }
-    },
-    {
-      "layers" : [
-        {
-          "fill-specializations" : [
-            {
-              "appearance" : "tinted",
-              "value" : {
-                "linear-gradient" : [
-                  "gray:0.90000,1.00000",
-                  "extended-gray:0.75000,1.00000"
-                ]
-              }
-            }
-          ],
-          "glass" : true,
-          "image-name" : "Overlay.svg",
-          "name" : "Overlay"
+          "image-name" : "Columns.svg",
+          "name" : "Columns"
         }
       ],
       "shadow" : {
         "kind" : "layer-color",
         "opacity" : 0.5
       },
+      "specular" : "inside",
       "translucency" : {
         "enabled" : true,
-        "value" : 0.5
+        "value" : 0.2
       }
     }
   ],
