@@ -75,7 +75,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
 
         NotificationCenter.default.addObserver(self, selector: #selector(rebuildMenu), name: .showAdditionalSizesInMenuChanged, object: nil)
 
-        updaterController = SPUStandardUpdaterController(updaterDelegate: nil, userDriverDelegate: self)
+        // Multi Rectangle is a personal fork: never start Sparkle, so it can't
+        // "update" this build to the official Rectangle release.
+        updaterController = SPUStandardUpdaterController(startingUpdater: false, updaterDelegate: nil, userDriverDelegate: self)
         
         checkAutoCheckForUpdates()
         
@@ -137,7 +139,7 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func checkAutoCheckForUpdates() {
-        updaterController.updater.automaticallyChecksForUpdates = Defaults.SUEnableAutomaticChecks.enabled
+        updaterController.updater.automaticallyChecksForUpdates = false
     }
     
     func accessibilityTrusted() {

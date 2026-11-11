@@ -43,16 +43,14 @@ struct AppSettingsView: View {
             }
             
             Section {
+                // Updates are disabled in Multi Rectangle (see AppDelegate), so only show the version.
                 HStack {
-                    Button(viewModel.hasPendingUpdate ? "Update Available…" : "Check for Updates…") {
-                        viewModel.checkForUpdates()
-                    }
+                    Text("Multi Rectangle")
                     Spacer()
                     Text(viewModel.versionString)
                         .foregroundColor(.secondary)
                         .font(.callout)
                 }
-                Toggle("Check for updates automatically", isOn: $viewModel.checkForUpdatesAutomatically)
             }
 
             Section {
